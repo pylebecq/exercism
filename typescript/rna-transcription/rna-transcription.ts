@@ -1,6 +1,6 @@
 type Nucleotide = "G" | "C" | "T" | "A";
 
-const DnaToRnaMappings: { [x: string]: string } = {
+const DnaToRnaMappings: Record<Nucleotide, string> = {
   G: "C",
   C: "G",
   T: "A",
@@ -10,7 +10,9 @@ const DnaToRnaMappings: { [x: string]: string } = {
 function assertIsNucleotideList(
   input: string[]
 ): asserts input is Nucleotide[] {
-  if (input.find((x) => DnaToRnaMappings[x] === undefined)) {
+  const nucleotides = Object.keys(DnaToRnaMappings);
+
+  if (input.some((x) => !nucleotides.includes(x))) {
     throw new Error("Invalid input DNA.");
   }
 }
